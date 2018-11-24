@@ -1,2 +1,2 @@
 # CryptView
-Dapp build with solidity
+Dapp built with solidity
