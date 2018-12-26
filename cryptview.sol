@@ -4,7 +4,7 @@ import "./ownable.sol";
 
 contract CryptView is Ownable {
     
-    uint private count = 0;
+    uint public count;
     address payable private treasury;
 
     struct Reward {
@@ -26,7 +26,7 @@ contract CryptView is Ownable {
         uint32 time;
     }
 
-    mapping(uint => Idea[]) private ideas;  //idea & reply
+    mapping(uint => Idea[]) public ideas;  //idea & reply
     mapping(uint => mapping(uint => int)) private likes;   //all the thumb-ups
     mapping(uint => mapping(uint => Reward[])) private rewards; //all the rewards(eth)
     Donation[] private donations;    //donations to the owner of the contract
@@ -40,7 +40,7 @@ contract CryptView is Ownable {
         treasury = newTreasury;
     }
 
-    function newIdea(string memory _content, bool _canUpdate, string memory _nickname) public {
+    function newIdea(string memory _content, bool _canUpdate, string memory _nickname) public payable {
         ideas[count].push(Idea(msg.sender, _content, _nickname, _canUpdate, uint32(now)));
         count++;
     }
