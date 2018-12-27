@@ -9,13 +9,13 @@ contract CryptView is Ownable {
 
     struct Reward {
         address from;
-        uint32 value;
+        uint256 value;
     }
 
     struct Donation {
         address from;
         string message;
-        uint32 value;
+        uint256 value;
     }
 
     struct Idea {
@@ -75,11 +75,11 @@ contract CryptView is Ownable {
         address payable sendto;
         sendto = ideas[ideaId][replyId].sender;
         sendto.transfer(msg.value);
-        rewards[ideaId][replyId].push(Reward(msg.sender, uint32(msg.value)));
+        rewards[ideaId][replyId].push(Reward(msg.sender, uint256(msg.value)));
     }
 
-    function getAllRewards(uint ideaId, uint replyId) view public returns (uint) {
-        uint sum;
+    function getAllRewards(uint ideaId, uint replyId) view public returns (uint256) {
+        uint256 sum;
         for (uint i = 0; i < rewards[ideaId][replyId].length; ++i) {
             sum += rewards[ideaId][replyId][i].value;
         }
@@ -87,7 +87,7 @@ contract CryptView is Ownable {
     }
 
     function donate(string memory message) payable public {
-        donations.push(Donation(msg.sender, message, uint32(msg.value)));
+        donations.push(Donation(msg.sender, message, uint256(msg.value)));
         treasury.transfer(msg.value);
     }
 
